@@ -2,7 +2,6 @@ import argparse
 import requests
 import sys
 import aprslib
-import pyowm
 
 
 def fetch_geoip_location():
@@ -46,7 +45,7 @@ def main():
 
     # Get the location weather
     wx_json = requests.get(
-        f"http://wttr.in/{lat_fmt},{long_fmt}?format=j1").json()
+        "http://wttr.in/{lat_fmt},{long_fmt}?format=j1".format(lat_fmt=lat_fmt, long_fmt=long_fmt)).json()
     temperature_f = wx_json["current_condition"][0]["temp_F"].zfill(3)
     wind_direction = wx_json["current_condition"][0]["winddirDegree"].zfill(3)
     wind_speed = wx_json["current_condition"][0]["windspeedMiles"].zfill(3)
@@ -54,11 +53,13 @@ def main():
     pressure = wx_json["weather"][0]["hourly"][0]["pressure"] + "0"
 
     # Construct packet
-    packet_header = f"{args.callsign.upper()}{args.ssid}>APRS:!"
-    packet_position = f"{lat_ddm}/{long_ddm}"
-    packet_wx_data = f"{wind_direction}/{wind_speed}t{temperature_f}h{humidity_percent}b{pressure}"
-    wx_packet = f"{packet_header}{packet_position}_{packet_wx_data}{args.message}"
-    info_packet = f"{packet_header}{packet_position}{args.symbol}{args.message}"
+    packet_header = "" + args.callsign.upper() + args.ssid + ">APRS:!"
+    packet_position = "" + lat_ddm + "/" + long_ddm
+    packet_wx_data = "" + wind_direction + "/" + wind_speed + "t" + \
+        temperature_f + "h" + humidity_percent + "b" + pressure
+    wx_packet = "" + packet_header + packet_position + \
+        "_" + packet_wx_data + args.message
+    info_packet = "" + packet_header + packet_position + args.symbol + args.message
 
     if args.wx_mode:
         packet = wx_packet
@@ -66,7 +67,7 @@ def main():
         packet = info_packet
 
     # Send
-    print(f"Sending packet: {packet}")
+    print("Sending packet: " + packet)
     if not args.dry_run:
         AIS = aprslib.IS(args.callsign, passwd=aprslib.passcode(
             args.callsign), port=14580)
