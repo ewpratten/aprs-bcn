@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "aprs-bcn"
+name = "aprsbcn"
 version = "0.1.0"
 description = ""
 authors = ["Evan Pratten <ewpratten@gmail.com>"]
