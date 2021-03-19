@@ -1,12 +1,11 @@
 import argparse
 import requests
 import sys
-from typing import Tuple
 import aprslib
 import pyowm
 
 
-def fetch_geoip_location() -> str:
+def fetch_geoip_location():
 
     # Make request
     response = requests.get("https://ipinfo.io/json").json()
@@ -15,7 +14,7 @@ def fetch_geoip_location() -> str:
     return response["loc"]
 
 
-def main() -> int:
+def main():
     # Handle program arguments
     ap = argparse.ArgumentParser(
         prog='aprs-bcn', description='Command-line tool for sending out APRS-IS beacons')

@@ -5,7 +5,7 @@ description = ""
 authors = ["Evan Pratten <ewpratten@gmail.com>"]
 
 [tool.poetry.dependencies]
-python = "^3.9"
+python = "^3.6"
 requests = "^2.25.1"
 aprslib = "^0.6.47"
 pyowm = "^3.2.0"
