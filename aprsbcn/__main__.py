@@ -16,7 +16,7 @@ def fetch_geoip_location():
 def main():
     # Handle program arguments
     ap = argparse.ArgumentParser(
-        prog='aprs-bcn', description='Command-line tool for sending out APRS-IS beacons')
+        prog='aprsbcn', description='Command-line tool for sending out APRS-IS beacons')
     ap.add_argument("-c", "--callsign", help="Callsign", required=True)
     ap.add_argument("--ssid", help="APRS SSID", default="-10")
     ap.add_argument("--symbol", help="APRS Symbol", default="0")
